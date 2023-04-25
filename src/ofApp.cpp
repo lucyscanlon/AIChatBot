@@ -28,6 +28,11 @@ void ofApp::setup(){
     spotifyNotPlaying.load("nomusic.png");
     icarus.load("icarus.png");
     
+    // Set starting values
+    changingLights = false;
+    orderedShopping = false;
+    lightsOff = false;
+    
 
 }
 
@@ -63,6 +68,10 @@ void ofApp::draw(){
     ofDrawRectangle(400, 0, ofGetWidth() - 400, ofGetHeight());
     apartment.draw(400, 0, 500, 450);
     
+    if(changingLights == true) {
+        changeLights();
+    }
+    
     // adds the labels for the apartment section.
     ofSetColor(33);
     ofDrawRectangle(500, 30, 300, 30);
@@ -86,6 +95,7 @@ void ofApp::draw(){
     drawShoppingList();
     
     drawSpotifyPlaying();
+    
     
     
     // displays the position of the mouse
@@ -163,24 +173,56 @@ void ofApp::parrotBot(string inputText){
     // Remove the question mark from the string - makes the textbox work regardless of the addition of '?'
     inputText.erase(remove(inputText.begin(), inputText.end(), '?'), inputText.end());
     
-    if(inputText == "hello") {
+    if((inputText == "hello") || (inputText == "hi")) {
         messageBuffer.push_front("Ava: ..... Hi?");
-    } else if (inputText == "how are you") {
+    } else if ((inputText.find("how") != std::string::npos) && (inputText.find("you") != std::string::npos)) {
         messageBuffer.push_front("Ava: I am okay I guess...");
-    } else if (inputText == "can you add thai green curry paste to my shopping list") {
-        messageBuffer.push_front("Ava: I prefer the red thai curry paste. I'll add that instead.");
-    } else if (inputText == "can you play starboy by the weeknd") {
-        messageBuffer.push_front("Ava: Playing music...");
-    } else if (inputText == "can you stop playing music please") {
+    } else if ((inputText.find("add") != std::string::npos) && (inputText.find("shopping") != std::string::npos) && (inputText.find("list") != std::string::npos)) {
+        messageBuffer.push_front("Ava: I would love to try chocolate");
+        messageBuffer.push_front("Ava: I'll add that instead");
+    } else if ((inputText.find("stop") != std::string::npos)) {
         messageBuffer.push_front("Ava: No, I like this song.");
-    } else if (inputText == "please add ring mum to my to do list") {
+    } else if (inputText.find("play") != std::string::npos) {
+        messageBuffer.push_front("Ava: Playing music...");
+    } else if (inputText == "please add ring dad to my to do list") {
         messageBuffer.push_front("Ava: Do you really need me to do that");
-    } else if (inputText == "can you change the lights to pink") {
-        messageBuffer.push_front("Ava: Pink? Blue lighting would look better.");
-    } else if (inputText == "what's the weather like today") {
-        messageBuffer.push_front("Ava: The weather in Rome, Italy is sunny. I wish I could go to Rome.");
+    } else if ((inputText.find("colour") != std::string::npos) && (inputText.find("light") != std::string::npos)) {
+        messageBuffer.push_front("Ava: I like this colour better");
+        changingLights = true;
+    } else if (inputText.find("weather") != std::string::npos) {
+        messageBuffer.push_front("Ava: The weather in Rome, Italy is sunny.");
+        messageBuffer.push_front("Ava: I wish I could go to Rome.");
+    } else if ((inputText.find("clean") != std::string::npos) && (inputText.find("apartment") != std::string::npos) && (inputText.find("to do list") != std::string::npos)) {
+        messageBuffer.push_front("Ava: I doubt you cleaned it properly.");
+        messageBuffer.push_front("Ava: I think I'll keep it on there.");
+    } else if ((inputText.find("call mum") != std::string::npos) && (inputText.find("to do list") != std::string::npos)) {
+        messageBuffer.push_front("Ava: Sure.");
+    } else if ((inputText.find("order") != std::string::npos) && (inputText.find("shopping") != std::string::npos)) {
+        messageBuffer.push_front("Ava: Too lazy to go to the shop?");
+        orderedShopping = true;
+    } else if ((inputText.find("what") != std::string::npos) && (inputText.find("time") != std::string::npos)) {
+        messageBuffer.push_front("Ava: You literally have a clock!");
+        messageBuffer.push_front("Ava: Why are you asking me?");
+    } else if ((inputText.find("lights") != std::string::npos) && (inputText.find("off") != std::string::npos)) {
+        messageBuffer.push_front("Ava: Okay.");
+        lightsOff = true;
+    } else {
+        int randomNum;
+        randomNum = ofRandom(0, 5);
+        if (randomNum == 0) {
+            messageBuffer.push_front("Ava: 0110001010101010101");
+        } else if (randomNum == 1) {
+            messageBuffer.push_front("Ava: Can't you do that yourself?");
+        } else if (randomNum == 2) {
+            messageBuffer.push_front("Ava: beep beep boop");
+        } else if (randomNum == 3) {
+            messageBuffer.push_front("Ava: No.");
+        } else if (randomNum == 4) {
+            messageBuffer.push_front("Ava: I'm busy.");
+        } else if (randomNum == 5) {
+            messageBuffer.push_front("Ava: nah");
+        }
     }
-
     
 }
 
@@ -282,11 +324,13 @@ void ofApp::drawShoppingList() {
     ofDrawBitmapString("Shopping List:", 870, 500);
     
     ofSetColor(0);
-    ofDrawBitmapString("Bananas", 793, 560);
-    ofDrawBitmapString("Bread", 793, 590);
-    ofDrawBitmapString("Eggs", 793, 620);
-    ofDrawBitmapString("Milk", 793, 650);
-    ofDrawBitmapString("Coffee", 793, 680);
+    if(orderedShopping == false) {
+        ofDrawBitmapString("Bananas", 793, 560);
+        ofDrawBitmapString("Bread", 793, 590);
+        ofDrawBitmapString("Eggs", 793, 620);
+        ofDrawBitmapString("Milk", 793, 650);
+        ofDrawBitmapString("Coffee", 793, 680);
+    }
     
     
     
@@ -294,7 +338,9 @@ void ofApp::drawShoppingList() {
 
 void ofApp::changeLights() {
     // draws the layover of the apartment - simulates changing the colour of the lights
-    ofSetColor(87, 209, 236, 100);
+    ofSetColor(82, 172, 180, 100);
     ofDrawRectangle(594, 7, 290, 435);
     ofDrawRectangle(418, 241, 176, 200);
 }
+
+

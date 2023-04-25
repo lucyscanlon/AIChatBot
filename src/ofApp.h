@@ -27,6 +27,7 @@ class ofApp : public ofBaseApp{
         void drawSpotifyPlaying();
         void drawShoppingList();
         void changeLights();
+        void turnOffLights();
     
     // parrot bot
     void parrotBot(string inputText);
@@ -50,5 +51,9 @@ class ofApp : public ofBaseApp{
     // image for the spotify section
     ofImage spotifyNotPlaying;
     ofImage icarus;
+    
+    bool changingLights;
+    bool orderedShopping;
+    bool lightsOff;
 		
 };
