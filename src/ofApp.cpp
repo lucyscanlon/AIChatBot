@@ -65,6 +65,7 @@ void ofApp::draw(){
     ofDrawRectangle(594, 7, 290, 435);
     ofDrawRectangle(418, 241, 176, 200);
     
+    // adds the labels for the apartment section.
     ofSetColor(33);
     ofDrawRectangle(500, 30, 300, 30);
     ofDrawRectangle(500, 380, 300, 30);
@@ -80,6 +81,37 @@ void ofApp::draw(){
     
     ofSetColor(0);
     ofDrawBitmapString("Questions to ask Ava:", 16, 623);
+    
+    // draw the to do list section
+    ofSetColor(40);
+    ofDrawRectangle(400, 449, 350, 452);
+    
+    // title label for the to do list
+    ofSetColor(255);
+    ofDrawRectangle(476, 481, 200, 30);
+    ofSetColor(0);
+    ofDrawBitmapString("To Do List:", 538, 500);
+    
+    // draw the shopping list section
+    ofSetColor(255);
+    ofDrawRectangle(750, 449, 350, 452);
+    
+    // title label for the shopping list
+    ofSetColor(0);
+    ofDrawRectangle(820, 481, 200, 30);
+    
+    ofSetColor(255);
+    ofDrawBitmapString("Shopping List:", 870, 500);
+    
+    // draw the music player section
+    ofSetColor(24, 26, 29);
+    ofDrawRectangle(1090, 449, 350, 452);
+    
+    ofSetColor(32, 198, 98);
+    ofDrawRectangle(1170, 481, 200, 30);
+    
+    ofSetColor(0);
+    ofDrawBitmapString("Spotify:", 1240, 500);
     
     
     // displays the position of the mouse
