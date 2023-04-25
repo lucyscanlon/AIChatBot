@@ -60,6 +60,11 @@ void ofApp::draw(){
     ofDrawRectangle(400, 0, ofGetWidth() - 400, ofGetHeight());
     apartment.draw(400, 0, 500, 450);
     
+    // draws the layover of the apartment - simulates changing the colour of the lights
+    ofSetColor(87, 209, 236, 100);
+    ofDrawRectangle(594, 7, 290, 435);
+    ofDrawRectangle(418, 241, 176, 200);
+    
     ofSetColor(33);
     ofDrawRectangle(500, 30, 300, 30);
     ofDrawRectangle(500, 380, 300, 30);
@@ -67,6 +72,20 @@ void ofApp::draw(){
     ofSetColor(255);
     ofDrawBitmapString("Welcome to your apartment", 550, 50);
     ofDrawBitmapString("Located in London, England", 550, 399);
+    
+    
+    // draw the example questions box
+    ofSetColor(105, 170, 178);
+    ofDrawRectangle(0, 600, 400, 300);
+    
+    ofSetColor(0);
+    ofDrawBitmapString("Questions to ask Ava:", 16, 623);
+    
+    
+    // displays the position of the mouse
+    string pixelCoords = "("+to_string(mouseX)+", "+to_string(mouseY)+")";  // creates a string with pixel position
+    ofSetColor(255,0,255);     // set text color
+    ofDrawBitmapString(pixelCoords, mouseX, mouseY); // write text with pixel position following the mouse
     
 
 
