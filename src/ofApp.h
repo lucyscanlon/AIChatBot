@@ -28,6 +28,8 @@ class ofApp : public ofBaseApp{
         void drawShoppingList();
         void changeLights();
         void turnOffLights();
+        void drawApartment();
+        void drawAlarm();
     
     // parrot bot
     void parrotBot(string inputText);
@@ -56,6 +58,7 @@ class ofApp : public ofBaseApp{
     bool orderedShopping;
     bool lightsOff;
     bool musicPlaying;
+    bool setAlarm;
     
     ofSoundPlayer icarusMusic;
 		

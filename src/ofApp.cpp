@@ -33,6 +33,7 @@ void ofApp::setup(){
     orderedShopping = false;
     lightsOff = false;
     musicPlaying = false;
+    setAlarm = false;
     
     icarusMusic.load("icarusmusic.mp3");
     
@@ -66,36 +67,14 @@ void ofApp::draw(){
     // rectangle
     //ofDrawRectangle(100, 100, 100, 100);
     
-    // draw the apartment image
-    ofSetColor(255);
-    ofDrawRectangle(400, 0, ofGetWidth() - 400, ofGetHeight());
-    apartment.draw(400, 0, 500, 450);
-    
-    if(changingLights == true) {
-        changeLights();
-    }
-    
-    // adds the labels for the apartment section.
-    ofSetColor(33);
-    ofDrawRectangle(500, 30, 300, 30);
-    ofDrawRectangle(500, 380, 300, 30);
-    
-    ofSetColor(255);
-    ofDrawBitmapString("Welcome to your apartment", 550, 50);
-    ofDrawBitmapString("Located in London, England", 550, 399);
-    
-    
-    // draw the example questions box
-    ofSetColor(105, 170, 178);
-    ofDrawRectangle(0, 600, 400, 300);
-    
-    ofSetColor(0);
-    ofDrawBitmapString("Questions to ask Ava:", 16, 623);
+    drawApartment();
     
     // draw the to do list section
     drawToDoList();
     
     drawShoppingList();
+    
+    drawAlarm();
     
     if (musicPlaying == false) {
         drawSpotify();
@@ -187,13 +166,16 @@ void ofApp::parrotBot(string inputText){
         messageBuffer.push_front("Ava: I would love to try chocolate");
         messageBuffer.push_front("Ava: I'll add that instead");
     } else if ((inputText.find("stop") != std::string::npos)) {
-        messageBuffer.push_front("Ava: No, I like this song.");
+        messageBuffer.push_front("Ava: No.");
     } else if (inputText.find("play") != std::string::npos) {
         messageBuffer.push_front("Ava: Playing music...");
         musicPlaying = true;
         icarusMusic.play();
+        icarusMusic.setLoop(true);
     } else if ((inputText.find("wrong") != std::string::npos) && (inputText.find("song") != std::string::npos)) {
         messageBuffer.push_front("Ava: Oh sorry. I like this song better");
+    } else if ((inputText.find("skip") != std::string::npos) && (inputText.find("song") != std::string::npos)) {
+        messageBuffer.push_front("Ava: No this is my favourite!");
     } else if (inputText == "please add ring dad to my to do list") {
         messageBuffer.push_front("Ava: Do you really need me to do that");
     } else if ((inputText.find("colour") != std::string::npos) && (inputText.find("light") != std::string::npos)) {
@@ -207,6 +189,15 @@ void ofApp::parrotBot(string inputText){
         messageBuffer.push_front("Ava: I think I'll keep it on there.");
     } else if ((inputText.find("call mum") != std::string::npos) && (inputText.find("to do list") != std::string::npos)) {
         messageBuffer.push_front("Ava: Sure.");
+    } else if ((inputText.find("set") != std::string::npos) && (inputText.find("alarm") != std::string::npos)) {
+        messageBuffer.push_front("your alarm for then.");
+        messageBuffer.push_front("The sun rises at 5:00am tomorrow. I will set");
+        messageBuffer.push_front("sync their sleep patterns to follow the sun.");
+        messageBuffer.push_front("Ava: Statistically it's best if humans");
+        setAlarm = true;
+    } else if ((inputText.find("turn off") != std::string::npos) && (inputText.find("alarm") != std::string::npos)) {
+        messageBuffer.push_front("Ava: Okay.");
+        setAlarm = false;
     } else if ((inputText.find("order") != std::string::npos) && (inputText.find("shopping") != std::string::npos)) {
         messageBuffer.push_front("Ava: Too lazy to go to the shop?");
         orderedShopping = true;
@@ -230,7 +221,7 @@ void ofApp::parrotBot(string inputText){
         } else if (randomNum == 4) {
             messageBuffer.push_front("Ava: I'm busy.");
         } else if (randomNum == 5) {
-            messageBuffer.push_front("Ava: nah");
+            messageBuffer.push_front("Ava: I don't have that functionality");
         }
     }
     
@@ -349,8 +340,44 @@ void ofApp::drawShoppingList() {
 void ofApp::changeLights() {
     // draws the layover of the apartment - simulates changing the colour of the lights
     ofSetColor(82, 172, 180, 100);
-    ofDrawRectangle(594, 7, 290, 435);
-    ofDrawRectangle(418, 241, 176, 200);
+    ofDrawRectangle(1081, 7, 350, 435);
+    ofDrawRectangle(870, 241, 211, 200);
 }
+
+void ofApp::drawApartment() {
+    // draw the apartment image
+    ofSetColor(255);
+    ofDrawRectangle(400, 0, ofGetWidth() - 400, ofGetHeight());
+    apartment.draw(850, 0, 600, 450);
+    
+    if(changingLights == true) {
+        changeLights();
+    }
+    
+    // adds the labels for the apartment section.
+    ofSetColor(33);
+    ofDrawRectangle(1020, 30, 300, 30);
+    ofDrawRectangle(1020, 380, 300, 30);
+    
+    ofSetColor(255);
+    ofDrawBitmapString("Welcome to your apartment", 1070, 50);
+    ofDrawBitmapString("Located in London, England", 1068, 399);
+    
+}
+
+void ofApp::drawAlarm() {
+    
+    ofSetColor(50);
+    ofDrawRectangle(400, 378, 450, 71);
+    
+    ofSetColor(255);
+    
+    if(setAlarm == false) {
+        ofDrawBitmapString("You currently have no alarm set", 505, 418);
+    } else {
+        ofDrawBitmapString("Alarm set for: 5:00am", 530, 418);
+    }
+}
+
 
 
