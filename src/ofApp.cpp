@@ -83,21 +83,14 @@ void ofApp::draw(){
     ofDrawBitmapString("Questions to ask Ava:", 16, 623);
     
     // draw the to do list section
-    ofSetColor(40);
-    ofDrawRectangle(400, 449, 350, 452);
-    
-    // title label for the to do list
-    ofSetColor(255);
-    ofDrawRectangle(476, 481, 200, 30);
-    ofSetColor(0);
-    ofDrawBitmapString("To Do List:", 538, 500);
+    drawToDoList();
     
     // draw the shopping list section
     ofSetColor(255);
     ofDrawRectangle(750, 449, 350, 452);
     
     // title label for the shopping list
-    ofSetColor(0);
+    ofSetColor(33);
     ofDrawRectangle(820, 481, 200, 30);
     
     ofSetColor(255);
@@ -224,4 +217,22 @@ void ofApp::onTextChange(string& text){
         //clear the text input field so the UX feels nicer
         textParameter.set("");
     }
+}
+
+void ofApp::drawToDoList() {
+    
+    // function to draw the to do list
+    ofSetColor(40);
+    ofDrawRectangle(400, 449, 350, 452);
+    
+    // title label for the to do list
+    ofSetColor(255);
+    ofDrawRectangle(476, 481, 200, 30);
+    ofSetColor(0);
+    ofDrawBitmapString("To Do List:", 538, 500);
+    
+    ofSetColor(255);
+    ofDrawBitmapString("Clean the apartment", 433, 560);
+    ofDrawBitmapString("Call mum", 433, 590);
+    ofDrawBitmapString("Book doctors appointment", 433, 620);
 }
