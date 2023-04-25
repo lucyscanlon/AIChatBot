@@ -14,10 +14,11 @@ void ofApp::setup(){
     gui.setDefaultWidth(350);
     gui.setup(parameters);
     gui.setDefaultHeight(20);
-    
+
     gui.setPosition(20,20);
-    lineHeight = 20;
+    lineHeight = 25;
     
+    ofSetColor(87, 236, 236);
     // starting message for Ava the chatbot
     messageBuffer.push_front("Ava: Hello. What do you want?");
     
@@ -40,8 +41,9 @@ void ofApp::draw(){
     //No need to add anything to draw
     gui.draw();
     
+    ofSetColor(87, 236, 236);
     for(int i = 0; i < messageBuffer.size(); i++){
-        ofDrawBitmapString(messageBuffer[i], 20, 70 + lineHeight * i);
+        ofDrawBitmapString(messageBuffer[i], 20, 80 + lineHeight * i);
     }
         
         //pop back messages once there are more than can be displayed
@@ -54,7 +56,18 @@ void ofApp::draw(){
     //ofDrawRectangle(100, 100, 100, 100);
     
     // draw the apartment image
-    apartment.draw(300, 200, 500, 450);
+    ofSetColor(255);
+    ofDrawRectangle(400, 0, ofGetWidth() - 400, ofGetHeight());
+    apartment.draw(400, 0, 500, 450);
+    
+    ofSetColor(33);
+    ofDrawRectangle(500, 30, 300, 30);
+    ofDrawRectangle(500, 380, 300, 30);
+    
+    ofSetColor(255);
+    ofDrawBitmapString("Welcome to your apartment", 550, 50);
+    ofDrawBitmapString("Located in London, England", 550, 399);
+    
 
 
 }
@@ -153,7 +166,7 @@ void ofApp::onTextChange(string& text){
         ofSetColor(0);
         messageBuffer.push_front("You: " + text);
         
-        ofSetColor(255);
+        ofSetColor(87, 236, 236);
         //get a response from your bot
         parrotBot(text);
         
