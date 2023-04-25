@@ -32,6 +32,9 @@ void ofApp::setup(){
     changingLights = false;
     orderedShopping = false;
     lightsOff = false;
+    musicPlaying = false;
+    
+    icarusMusic.load("icarusmusic.mp3");
     
 
 }
@@ -94,9 +97,12 @@ void ofApp::draw(){
     
     drawShoppingList();
     
-    drawSpotifyPlaying();
-    
-    
+    if (musicPlaying == false) {
+        drawSpotify();
+    } else if (musicPlaying == true) {
+        drawSpotifyPlaying();
+    }
+
     
     // displays the position of the mouse
     string pixelCoords = "("+to_string(mouseX)+", "+to_string(mouseY)+")";  // creates a string with pixel position
@@ -184,6 +190,10 @@ void ofApp::parrotBot(string inputText){
         messageBuffer.push_front("Ava: No, I like this song.");
     } else if (inputText.find("play") != std::string::npos) {
         messageBuffer.push_front("Ava: Playing music...");
+        musicPlaying = true;
+        icarusMusic.play();
+    } else if ((inputText.find("wrong") != std::string::npos) && (inputText.find("song") != std::string::npos)) {
+        messageBuffer.push_front("Ava: Oh sorry. I like this song better");
     } else if (inputText == "please add ring dad to my to do list") {
         messageBuffer.push_front("Ava: Do you really need me to do that");
     } else if ((inputText.find("colour") != std::string::npos) && (inputText.find("light") != std::string::npos)) {

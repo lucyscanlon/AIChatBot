@@ -55,5 +55,8 @@ class ofApp : public ofBaseApp{
     bool changingLights;
     bool orderedShopping;
     bool lightsOff;
+    bool musicPlaying;
+    
+    ofSoundPlayer icarusMusic;
 		
 };
