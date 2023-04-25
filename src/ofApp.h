@@ -24,6 +24,9 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
         void drawToDoList();
         void drawSpotify();
+        void drawSpotifyPlaying();
+        void drawShoppingList();
+        void changeLights();
     
     // parrot bot
     void parrotBot(string inputText);
@@ -46,5 +49,6 @@ class ofApp : public ofBaseApp{
     
     // image for the spotify section
     ofImage spotifyNotPlaying;
+    ofImage icarus;
 		
 };

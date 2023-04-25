@@ -26,6 +26,7 @@ void ofApp::setup(){
     apartment.load("apartment.jpeg");
     
     spotifyNotPlaying.load("nomusic.png");
+    icarus.load("icarus.png");
     
 
 }
@@ -62,11 +63,6 @@ void ofApp::draw(){
     ofDrawRectangle(400, 0, ofGetWidth() - 400, ofGetHeight());
     apartment.draw(400, 0, 500, 450);
     
-    // draws the layover of the apartment - simulates changing the colour of the lights
-    ofSetColor(87, 209, 236, 100);
-    ofDrawRectangle(594, 7, 290, 435);
-    ofDrawRectangle(418, 241, 176, 200);
-    
     // adds the labels for the apartment section.
     ofSetColor(33);
     ofDrawRectangle(500, 30, 300, 30);
@@ -87,18 +83,9 @@ void ofApp::draw(){
     // draw the to do list section
     drawToDoList();
     
-    // draw the shopping list section
-    ofSetColor(255);
-    ofDrawRectangle(750, 449, 350, 452);
+    drawShoppingList();
     
-    // title label for the shopping list
-    ofSetColor(33);
-    ofDrawRectangle(820, 481, 200, 30);
-    
-    ofSetColor(255);
-    ofDrawBitmapString("Shopping List:", 870, 500);
-    
-    drawSpotify();
+    drawSpotifyPlaying();
     
     
     // displays the position of the mouse
@@ -257,4 +244,57 @@ void ofApp::drawSpotify() {
     ofDrawBitmapString("to any music", 1220, 860);
     
     
+}
+
+void ofApp::drawSpotifyPlaying() {
+    
+    // draw the music player section
+    ofSetColor(38, 42, 48);
+    ofDrawRectangle(1090, 449, 350, 452);
+    
+    ofSetColor(32, 198, 98);
+    ofDrawRectangle(1170, 481, 200, 30);
+    
+    ofSetColor(0);
+    ofDrawBitmapString("Spotify:", 1240, 500);
+    
+    ofSetColor(255);
+    ofDrawBitmapString("Currently listening to:", 1175, 570);
+    
+    icarus.draw(1168, 595, 200, 200);
+    
+    ofDrawBitmapString("Icarus", 1245, 840);
+    ofDrawBitmapString("By Jedwill", 1230, 860);
+    
+}
+
+void ofApp::drawShoppingList() {
+    
+    // draw the shopping list section
+    ofSetColor(255);
+    ofDrawRectangle(750, 449, 350, 452);
+    
+    // title label for the shopping list
+    ofSetColor(33);
+    ofDrawRectangle(820, 481, 200, 30);
+    
+    ofSetColor(255);
+    ofDrawBitmapString("Shopping List:", 870, 500);
+    
+    ofSetColor(0);
+    ofDrawBitmapString("Bananas", 793, 560);
+    ofDrawBitmapString("Bread", 793, 590);
+    ofDrawBitmapString("Eggs", 793, 620);
+    ofDrawBitmapString("Milk", 793, 650);
+    ofDrawBitmapString("Coffee", 793, 680);
+    
+    
+    
+}
+
+void ofApp::changeLights() {
+    // draws the layover of the apartment - simulates changing the colour of the lights
+    ofSetColor(87, 209, 236, 100);
+    ofDrawRectangle(594, 7, 290, 435);
+    ofDrawRectangle(418, 241, 176, 200);
 }
