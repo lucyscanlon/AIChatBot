@@ -23,6 +23,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
         void drawToDoList();
+        void drawSpotify();
     
     // parrot bot
     void parrotBot(string inputText);
@@ -39,5 +40,11 @@ class ofApp : public ofBaseApp{
     
     // load the image of the apartment
     ofImage apartment;
+    
+    // line to cross off "doctors appointment" from the to do list
+    ofPolyline doctorsLine;
+    
+    // image for the spotify section
+    ofImage spotifyNotPlaying;
 		
 };

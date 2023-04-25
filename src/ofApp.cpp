@@ -25,6 +25,8 @@ void ofApp::setup(){
     // load the image of the apartment
     apartment.load("apartment.jpeg");
     
+    spotifyNotPlaying.load("nomusic.png");
+    
 
 }
 
@@ -96,15 +98,7 @@ void ofApp::draw(){
     ofSetColor(255);
     ofDrawBitmapString("Shopping List:", 870, 500);
     
-    // draw the music player section
-    ofSetColor(24, 26, 29);
-    ofDrawRectangle(1090, 449, 350, 452);
-    
-    ofSetColor(32, 198, 98);
-    ofDrawRectangle(1170, 481, 200, 30);
-    
-    ofSetColor(0);
-    ofDrawBitmapString("Spotify:", 1240, 500);
+    drawSpotify();
     
     
     // displays the position of the mouse
@@ -235,4 +229,32 @@ void ofApp::drawToDoList() {
     ofDrawBitmapString("Clean the apartment", 433, 560);
     ofDrawBitmapString("Call mum", 433, 590);
     ofDrawBitmapString("Book doctors appointment", 433, 620);
+    
+    doctorsLine.addVertex(425, 616);
+    doctorsLine.addVertex(630, 616);
+    
+    doctorsLine.draw();
+}
+
+void ofApp::drawSpotify() {
+    
+    // draw the music player section
+    ofSetColor(38, 42, 48);
+    ofDrawRectangle(1090, 449, 350, 452);
+    
+    ofSetColor(32, 198, 98);
+    ofDrawRectangle(1170, 481, 200, 30);
+    
+    ofSetColor(0);
+    ofDrawBitmapString("Spotify:", 1240, 500);
+    
+    ofSetColor(255);
+    ofDrawBitmapString("Currently listening to:", 1175, 570);
+    
+    spotifyNotPlaying.draw(1168, 595, 200, 200);
+    
+    ofDrawBitmapString("You are currently not listening", 1150, 840);
+    ofDrawBitmapString("to any music", 1220, 860);
+    
+    
 }
