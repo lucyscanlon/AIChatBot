@@ -30,6 +30,8 @@ class ofApp : public ofBaseApp{
         void turnOffLights();
         void drawApartment();
         void drawAlarm();
+        void drawInstructionsSection();
+        void terminationTimer();
     
     // parrot bot
     void parrotBot(string inputText);
@@ -49,6 +51,7 @@ class ofApp : public ofBaseApp{
     
     // line to cross off "doctors appointment" from the to do list
     ofPolyline doctorsLine;
+    ofPolyline calledMumLine;
     
     // image for the spotify section
     ofImage spotifyNotPlaying;
@@ -59,7 +62,21 @@ class ofApp : public ofBaseApp{
     bool lightsOff;
     bool musicPlaying;
     bool setAlarm;
+    bool calledMum;
+    bool chocolateAdded;
+    bool chocolateFirst;
+    bool flirtedWith;
     
     ofSoundPlayer icarusMusic;
+    
+    int lightRandom;
+    
+    bool conversationTerm;
+    
+    float frame;
+    float endTimer;
+    
+    
+ 
 		
 };
