@@ -76,6 +76,8 @@ class ofApp : public ofBaseApp{
     float frame;
     float endTimer;
     
+    ofTrueTypeFont newFont;
+    
     
  
 		

@@ -45,6 +45,8 @@ void ofApp::setup(){
     
     icarusMusic.load("icarusmusic.mp3");
     
+    newFont.load("sans-serif.ttf", 8);
+    
 
 }
 
@@ -288,12 +290,12 @@ void ofApp::drawToDoList() {
         ofSetColor(255);
         ofDrawRectangle(476, 481, 200, 30);
         ofSetColor(0);
-        ofDrawBitmapString("To Do List:", 538, 500);
+        newFont.drawString("To Do List:", 538, 500);
         
         ofSetColor(255);
-        ofDrawBitmapString("Clean the apartment", 433, 560);
-        ofDrawBitmapString("Call mum", 433, 590);
-        ofDrawBitmapString("Book doctors appointment", 433, 620);
+        newFont.drawString("Clean the apartment", 433, 560);
+        newFont.drawString("Call mum", 433, 590);
+        newFont.drawString("Book doctors appointment", 433, 620);
         
         doctorsLine.addVertex(425, 616);
         doctorsLine.addVertex(630, 616);
@@ -321,15 +323,15 @@ void ofApp::drawSpotify() {
         ofDrawRectangle(1170, 481, 200, 30);
         
         ofSetColor(0);
-        ofDrawBitmapString("Spotify:", 1240, 500);
+        newFont.drawString("Spotify:", 1240, 500);
         
         ofSetColor(255);
-        ofDrawBitmapString("Currently listening to:", 1175, 570);
+        newFont.drawString("Currently listening to:", 1200, 570);
         
         spotifyNotPlaying.draw(1168, 595, 200, 200);
         
-        ofDrawBitmapString("You are currently not listening", 1150, 840);
-        ofDrawBitmapString("to any music", 1220, 860);
+        newFont.drawString("You are currently not listening", 1180, 840);
+        newFont.drawString("to any music", 1230, 860);
     }
     
     
@@ -348,15 +350,15 @@ void ofApp::drawSpotifyPlaying() {
         ofDrawRectangle(1170, 481, 200, 30);
         
         ofSetColor(0);
-        ofDrawBitmapString("Spotify:", 1240, 500);
+        newFont.drawString("Spotify:", 1240, 500);
         
         ofSetColor(255);
-        ofDrawBitmapString("Currently listening to:", 1175, 570);
+        newFont.drawString("Currently listening to:", 12001200, 570);
         
         icarus.draw(1168, 595, 200, 200);
         
-        ofDrawBitmapString("Icarus", 1245, 840);
-        ofDrawBitmapString("By Jedwill", 1230, 860);
+        newFont.drawString("Icarus", 1245, 840);
+        newFont.drawString("By Jedwill", 1230, 860);
     }
     
     
@@ -377,23 +379,23 @@ void ofApp::drawShoppingList() {
         ofDrawRectangle(820, 481, 200, 30);
         
         ofSetColor(255);
-        ofDrawBitmapString("Shopping List:", 870, 500);
+        newFont.drawString("Shopping List:", 870, 500);
         
         ofSetColor(0);
         if(orderedShopping == false) {
-            ofDrawBitmapString("Bananas", 793, 560);
-            ofDrawBitmapString("Bread", 793, 590);
-            ofDrawBitmapString("Eggs", 793, 620);
-            ofDrawBitmapString("Milk", 793, 650);
-            ofDrawBitmapString("Coffee", 793, 680);
+            newFont.drawString("Bananas", 793, 560);
+            newFont.drawString("Bread", 793, 590);
+            newFont.drawString("Eggs", 793, 620);
+            newFont.drawString("Milk", 793, 650);
+            newFont.drawString("Coffee", 793, 680);
             if(chocolateFirst == true && chocolateAdded == true) {
-                ofDrawBitmapString("Chocolate", 793, 710);
+                newFont.drawString("Chocolate", 793, 710);
             }
         }
         
         if(orderedShopping == true) {
             if(chocolateAdded == true && chocolateFirst == false) {
-                ofDrawBitmapString("chocolate", 793, 560);
+                newFont.drawString("chocolate", 793, 560);
             }
             
         }
@@ -441,12 +443,12 @@ void ofApp::drawApartment() {
         
         // adds the labels for the apartment section.
         ofSetColor(33);
-        ofDrawRectangle(1020, 30, 300, 30);
-        ofDrawRectangle(1020, 380, 300, 30);
+        ofDrawRectangle(1000, 30, 300, 30);
+        ofDrawRectangle(1000, 380, 300, 30);
         
         ofSetColor(255);
-        ofDrawBitmapString("Welcome to your apartment", 1070, 50);
-        ofDrawBitmapString("Located in London, England", 1068, 399);
+        newFont.drawString("Welcome to your apartment", 1070, 50);
+        newFont.drawString("Located in London, England", 1068, 399);
     }
     
     
@@ -463,9 +465,9 @@ void ofApp::drawAlarm() {
         ofSetColor(255);
         
         if(setAlarm == false) {
-            ofDrawBitmapString("You currently have no alarm set", 505, 418);
+            newFont.drawString("You currently have no alarm set", 525, 418);
         } else {
-            ofDrawBitmapString("Alarm set for: 5:00am", 530, 418);
+            newFont.drawString("Alarm set for: 5:00am", 560, 418);
         }
     }
     
@@ -473,23 +475,23 @@ void ofApp::drawAlarm() {
 }
 
 void ofApp::drawInstructionsSection() {
-    ofSetColor(171, 220, 224);
+    ofSetColor(199, 227, 229);
     ofDrawRectangle(400, 0, 450, 380);
     
     if (conversationTerm == false) {
         ofSetColor(0);
-        ofDrawBitmapString("Welcome to Ava, your own personal AI assistant.", 420, 30);
-        ofDrawBitmapString("Here's some things you can ask Ava to do:", 420, 50);
-        ofDrawBitmapString(" - Ask it to add an item to your shopping list", 420, 80);
-        ofDrawBitmapString(" - Ask it to change the colour of the lights", 420, 100);
-        ofDrawBitmapString(" - Ask it to remove something from your to do list", 420, 120);
-        ofDrawBitmapString(" - Ask it what the weather is like", 420, 140);
-        ofDrawBitmapString(" - Ask it what time it is", 420, 160);
-        ofDrawBitmapString(" - Ask it to play music", 420, 180);
-        ofDrawBitmapString(" - Ask it to set your alarm", 420, 200);
-        ofDrawBitmapString(" - Ask it add an item to your to do list", 420, 220);
-        ofDrawBitmapString(" - Ask it to order your shopping list online", 420, 240);
-        ofDrawBitmapString(" - Flirt with it", 420, 260);
+        newFont.drawString("Welcome to Ava, your own personal AI assistant.", 420, 40);
+        newFont.drawString("Here's some things you can ask Ava to do:", 420, 60);
+        newFont.drawString(" - Ask it to add an item to your shopping list", 420, 90);
+        newFont.drawString(" - Ask it to change the colour of the lights", 420, 115);
+        newFont.drawString(" - Ask it to remove something from your to do list", 420, 140);
+        newFont.drawString(" - Ask it what the weather is like", 420, 165);
+        newFont.drawString(" - Ask it what time it is", 420, 190);
+        newFont.drawString(" - Ask it to play music", 420, 215);
+        newFont.drawString(" - Ask it to set your alarm", 420, 240);
+        newFont.drawString(" - Ask it add an item to your to do list", 420, 265);
+        newFont.drawString(" - Ask it to order your shopping list online", 420, 290);
+        newFont.drawString(" - Flirt with it", 420, 315);
     }
     
 }
