@@ -4,8 +4,10 @@ using namespace std;
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    // set frame rate and backround
     ofSetFrameRate(60);
     ofBackground(33);
+    
     textParameter.addListener(this, &ofApp::onTextChange);
     
     // set up for the text box of the chatbot
@@ -43,8 +45,10 @@ void ofApp::setup(){
     frame = 1;
     endTimer = 9999999999999;
     
+    // load music
     icarusMusic.load("icarusmusic.mp3");
     
+    // load font
     newFont.load("sans-serif.ttf", 8);
     
 
@@ -53,6 +57,8 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
+    // works as a timer to trigger the termination of the conversation
+    // when the chatbot is flirted with
     if(ofGetFrameNum() > endTimer) {
         conversationTerm = true;
     }
@@ -63,30 +69,27 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    // draw box around the chatbot
-    //ofDrawRectangle(10, 10, 370, ofGetHeight() - 20);
-    //No need to add anything to draw
-    
+    // check if the conversation has been terminated if not then draw the application
     if (conversationTerm == false) {
         gui.draw();
         
+        // draw the chatlog
         ofSetColor(87, 236, 236);
         for(int i = 0; i < messageBuffer.size(); i++){
             ofDrawBitmapString(messageBuffer[i], 20, 80 + lineHeight * i);
         }
             
-            //pop back messages once there are more than can be displayed
+        // pop back chatlog messages when there are more then can be displayed
         float messagePxHeight = messageBuffer.size() * lineHeight + 70;
         if(messagePxHeight > ofGetHeight()){
             messageBuffer.pop_back();
         }
         
-        // rectangle
-        //ofDrawRectangle(100, 100, 100, 100);
+
+        // call functions to draw the elements of the application
         
         drawApartment();
         
-        // draw the to do list section
         drawToDoList();
         
         drawShoppingList();
@@ -95,6 +98,7 @@ void ofApp::draw(){
         
         drawInstructionsSection();
         
+        // play music the chatbot has been asked to
         if (musicPlaying == false) {
             drawSpotify();
         } else if (musicPlaying == true) {
@@ -102,19 +106,12 @@ void ofApp::draw(){
         }
         
     } else {
+        // if the chatbot has been flirted with and the conversation has been ended
+        // then only display this message
         ofSetColor(87, 236, 236);
         ofDrawBitmapString("Ava has disconnected the conversation", 20, 30);
     }
     
-    
-
-    
-    // displays the position of the mouse
-    string pixelCoords = "("+to_string(mouseX)+", "+to_string(mouseY)+")";  // creates a string with pixel position
-    ofSetColor(255,0,255);     // set text color
-    ofDrawBitmapString(pixelCoords, mouseX, mouseY); // write text with pixel position following the mouse
-    
-
 
 }
 
@@ -173,8 +170,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
-void ofApp::parrotBot(string inputText){
-    //There's not much going on in the parrotBot
+void ofApp::chatBot(string inputText){
     
     string output = inputText;
     
@@ -184,6 +180,10 @@ void ofApp::parrotBot(string inputText){
     // Remove the question mark from the string - makes the textbox work regardless of the addition of '?'
     inputText.erase(remove(inputText.begin(), inputText.end(), '?'), inputText.end());
     
+    // check the inputted text for key words to give a reponse that makes sense and is appropriate for
+    // the question asked by the user
+    // Trigger certain bools to control interactive elements of the application
+    // replicates the user asking the AI and it interpreting and responding
     if((inputText == "hello") || (inputText == "hi")) {
         messageBuffer.push_front("Ava: ..... Hi?");
     } else if ((inputText.find("how") != std::string::npos) && (inputText.find("you") != std::string::npos)) {
@@ -244,6 +244,8 @@ void ofApp::parrotBot(string inputText){
         messageBuffer.push_front("Ava: That is inappropriate and");
         terminationTimer();
     } else {
+        // if the inputted text does not match anything above
+        // then respond with one of these phrases
         int randomNum;
         randomNum = ofRandom(0, 5);
         if (randomNum == 0) {
@@ -272,7 +274,7 @@ void ofApp::onTextChange(string& text){
         
         ofSetColor(87, 236, 236);
         //get a response from your bot
-        parrotBot(text);
+        chatBot(text);
         
         //clear the text input field so the UX feels nicer
         textParameter.set("");
@@ -286,7 +288,6 @@ void ofApp::drawToDoList() {
     ofDrawRectangle(400, 449, 350, 452);
     
     if(conversationTerm == false) {
-        // title label for the to do list
         ofSetColor(255);
         ofDrawRectangle(476, 481, 200, 30);
         ofSetColor(0);
@@ -341,7 +342,7 @@ void ofApp::drawSpotify() {
 
 void ofApp::drawSpotifyPlaying() {
     
-    // draw the music player section
+    // draw the music player section if music is playing
     ofSetColor(38, 42, 48);
     ofDrawRectangle(1090, 449, 350, 452);
     
@@ -374,7 +375,6 @@ void ofApp::drawShoppingList() {
     
     
     if(conversationTerm == false) {
-        // title label for the shopping list
         ofSetColor(33);
         ofDrawRectangle(820, 481, 200, 30);
         
@@ -382,6 +382,11 @@ void ofApp::drawShoppingList() {
         newFont.drawString("Shopping List:", 870, 500);
         
         ofSetColor(0);
+        
+        // this functionality checks whether the user has asked to add something to
+        // the shopping list first or whether they have asked the shopping to be ordered first
+        // the order the user asks affects the display of the shopping list and therefore
+        // we must check which one was asked first
         if(orderedShopping == false) {
             newFont.drawString("Bananas", 793, 560);
             newFont.drawString("Bread", 793, 590);
@@ -410,6 +415,7 @@ void ofApp::drawShoppingList() {
 void ofApp::changeLights() {
     // draws the layover of the apartment - simulates changing the colour of the lights
     
+    // changes the lights to one of four colour options
     if(conversationTerm == false) {
         if (lightRandom == 1) {
             ofSetColor(82, 172, 180, 100);
@@ -458,6 +464,7 @@ void ofApp::drawApartment() {
 
 void ofApp::drawAlarm() {
     
+    // draws the alarm section
     ofSetColor(50);
     ofDrawRectangle(400, 378, 450, 71);
     
@@ -475,6 +482,8 @@ void ofApp::drawAlarm() {
 }
 
 void ofApp::drawInstructionsSection() {
+    
+    // draws the instruction section
     ofSetColor(199, 227, 229);
     ofDrawRectangle(400, 0, 450, 380);
     
@@ -498,7 +507,7 @@ void ofApp::drawInstructionsSection() {
 
 void ofApp::terminationTimer() {
     frame = ofGetFrameNum();
-    endTimer = frame + 200;
+    endTimer = frame + 300;
     
     cout << frame << endl;
     cout << endTimer << endl;

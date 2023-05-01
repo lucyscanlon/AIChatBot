@@ -33,8 +33,8 @@ class ofApp : public ofBaseApp{
         void drawInstructionsSection();
         void terminationTimer();
     
-    // parrot bot
-    void parrotBot(string inputText);
+    // chat bot
+    void chatBot(string inputText);
     
     // function which takes in the user input
     void onTextChange(string& text);
